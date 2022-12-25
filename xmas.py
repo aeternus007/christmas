@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from itertools import cycle
 from random import choice, randrange
 from time import sleep
@@ -72,11 +74,12 @@ class MessagePoint:
                 point.write(screen, point.y + to_add_y, point.x + to_add_x)
 
     @classmethod
-    def get_message(cls, path, base_color, blink_colors):
+    def get_message(cls, path, base_color, blink_colors, text_color):
         with open(path) as file:
             message = file.readlines()
 
         right = 0
+
         blinking_colors = cycle(blink_colors)
 
         for idx, line in enumerate(message):
@@ -90,6 +93,9 @@ class MessagePoint:
                     else:
                         MessagePoint(idx, idy, character, base_color)
 
+                    if idy > 40:
+                        MessagePoint(idx, idy, character, text_color)
+
         return len(message), right
 
 
@@ -100,17 +106,22 @@ def main(screen, message_path):
 
     curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
     GREEN = curses.color_pair(1)
+
     curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-    YELLOW = curses.color_pair(2) | curses.A_BLINK
+    B_YELLOW = curses.color_pair(2) | curses.A_BLINK
     curses.init_pair(3, curses.COLOR_BLUE, curses.COLOR_BLACK)
-    BLUE = curses.color_pair(3) | curses.A_BLINK
+    B_BLUE = curses.color_pair(3) | curses.A_BLINK
     curses.init_pair(4, curses.COLOR_RED, curses.COLOR_BLACK)
-    RED = curses.color_pair(4) | curses.A_BLINK
+    B_RED = curses.color_pair(4) | curses.A_BLINK
     curses.init_pair(5, curses.COLOR_CYAN, curses.COLOR_BLACK)
-    CYAN = curses.color_pair(5) | curses.A_BLINK
+    B_CYAN = curses.color_pair(5) | curses.A_BLINK
     curses.init_pair(6, curses.COLOR_MAGENTA, curses.COLOR_BLACK)
-    MAGENTA = curses.color_pair(6) | curses.A_BLINK
-    bottom, right = MessagePoint.get_message(message_path, GREEN, (YELLOW, BLUE, RED, CYAN, MAGENTA))
+    B_MAGENTA = curses.color_pair(6) | curses.A_BLINK
+
+    curses.init_pair(8, curses.COLOR_RED, curses.COLOR_BLACK)
+    RED = curses.color_pair(8)
+
+    bottom, right = MessagePoint.get_message(message_path, GREEN, (B_YELLOW, B_BLUE, B_RED, B_CYAN, B_MAGENTA), RED)
 
     while True:
         screen.clear()
@@ -133,5 +144,3 @@ def main(screen, message_path):
 message = "/home/aeternus/Documenten/Programming/Python_programming/xmas/message.txt"
 
 wrapper(main, message)
-
-# print(MessagePoint.get_message(message, None))
