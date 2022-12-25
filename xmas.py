@@ -139,6 +139,6 @@ def main(screen, message_path):
         screen.refresh()
 
 
-message = "/home/aeternus/Documenten/Programming/Python_programming/xmas/message.txt"
+message = "./message.txt"
 
 wrapper(main, message)
