@@ -32,7 +32,6 @@ class Snowflake:
         for idx, snowflake in enumerate(cls.snowflakes):
 
             if snowflake.y >= max_y - randrange(2, 5):
-                # cls.snowflakes.pop(idx)
                 snowflake.write(screen)
                 continue
 
@@ -57,7 +56,6 @@ class MessagePoint:
         self.y = y
         self.x = x
         self.character = character
-        # self.colored = colored
         self.color = color
         self.points.append(self)
 
@@ -137,7 +135,7 @@ def main(screen, message_path):
         Snowflake.update(Snowflake, screen, y, x)
         MessagePoint.update(MessagePoint, screen, y, x, bottom, right)
 
-        sleep(0.5)
+        sleep(0.4)
         screen.refresh()
 
 
