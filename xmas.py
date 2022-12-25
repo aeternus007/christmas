@@ -29,9 +29,6 @@ class Snowflake:
 
     @staticmethod
     def update(cls, screen, max_y, max_x):
-        if len(Snowflake.snowflakes) > 1100:
-            del Snowflake.snowflakes[0]
-
         for idx, snowflake in enumerate(cls.snowflakes):
 
             if snowflake.y >= max_y - randrange(2, 5):
@@ -50,6 +47,9 @@ class Snowflake:
             snowflake.write(screen)
 
             snowflake.y += choice([0, 1, 2])
+
+            if len(cls.snowflakes) > 1200:
+                del Snowflake.snowflakes[0 : int((x // 3) * 1.5)]
 
 
 class MessagePoint:
@@ -130,9 +130,9 @@ def main(screen, message_path):
         y, x = screen.getmaxyx()
         count += 1
 
-        if count == 0:
+        if count == 1:
             [Snowflake.get_snowflake(x) for _ in range(int((x // 3) * 1.5))]
-            
+            del Snowflake.snowflakes[0 : int((x // 3) * 1.5)]
         elif count == 3:
             count = 0
 
@@ -145,7 +145,4 @@ def main(screen, message_path):
 
 message = "/home/aeternus/Documenten/Programming/Python_programming/xmas/message.txt"
 
-try:
-    wrapper(main, message)
-except KeyboardInterrupt as e:
-    print(len(Snowflake.snowflakes))
+wrapper(main, message)
