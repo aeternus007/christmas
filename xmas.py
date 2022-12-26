@@ -49,7 +49,7 @@ class Snowflake:
             snowflake.y += choice([0, 1, 2])
 
             if len(cls.snowflakes) > 1200:
-                del Snowflake.snowflakes[0 : int((x // 3) * 1.5)]
+                del cls.snowflakes[0]
 
 
 class MessagePoint:
@@ -132,7 +132,7 @@ def main(screen, message_path):
 
         if count == 1:
             [Snowflake.get_snowflake(x) for _ in range(int((x // 3) * 1.5))]
-            del Snowflake.snowflakes[0 : int((x // 3) * 1.5)]
+            # del Snowflake.snowflakes[0 : int((x // 3) * 1.5)]
         elif count == 3:
             count = 0
 
