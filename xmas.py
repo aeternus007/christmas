@@ -143,6 +143,6 @@ def main(screen, message_path):
         screen.refresh()
 
 
-message = "./message.txt"
+message = "/".join(__file__.split("/")[:-1]) + "/message.txt"
 
 wrapper(main, message)
