@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from itertools import cycle
+from os import path
 from random import choice, randrange
 from time import sleep
 
@@ -99,7 +100,6 @@ class MessagePoint:
 
         return len(message), right
 
-
 def main(screen, message_path):
     y, x = screen.getmaxyx()
     [Snowflake.get_snowflake(x) for _ in range(int((x // 3) * 1.5))]
@@ -143,6 +143,6 @@ def main(screen, message_path):
         screen.refresh()
 
 
-message = "/".join(__file__.split("/")[:-1]) + "/message.txt"
+message = path.dirname(__file__) + "/message.txt"
 
 wrapper(main, message)
