@@ -5,8 +5,13 @@ from os import path
 from random import choice, randrange
 from time import sleep
 
-import curses
-from curses import wrapper
+try:
+    import curses
+    from curses import wrapper
+    
+except:
+    import windows_curses as curses
+    from windows_curses import wrapper
 
 class Snowflake:
     snowflake_characters = ["❄", "❅", "❆", ".", "*"]
@@ -143,6 +148,6 @@ def main(screen, message_path):
         screen.refresh()
 
 
-message = path.dirname(__file__) + "/message.txt"
+message = path.join(path.dirname(__file__), 'message.txt') # make a universal path
 
 wrapper(main, message)
